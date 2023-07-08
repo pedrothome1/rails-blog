@@ -1,0 +1,25 @@
+<% unless comment.archived? %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+
+  <p>
+    <a
+      href="<%= article_comment_path(comment.article, comment) %>"
+      onclick="
+      fetch(event.target.href, {
+        method: 'DELETE',
+        headers: {'X-Csrf-Token': '<%= form_authenticity_token %>'}}
+        ).then(response => location.href = response.url);
+        return false;"
+    >
+      Destroy
+    </a>
+  </p>
+<% end %>

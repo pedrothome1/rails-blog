@@ -1,0 +1,30 @@
+<h1><%= @article.title %></h1>
+
+<p><%= @article.body %></p>
+
+<ul>
+  <li>
+    <%= link_to "Edit", edit_article_path(@article) %>
+  </li>
+
+  <li>
+    <a
+      href="<%= article_path(@article) %>"
+      onclick="
+        fetch(event.target.href, {
+          method: 'DELETE',
+          headers: {'X-Csrf-Token': '<%= form_authenticity_token %>'}}
+        ).then(response => location.href = response.url);
+        return false;"
+    >
+      Destroy
+    </a>
+  </li>
+</ul>
+
+<h2>Comments</h2>
+<%= render @article.comments %>
+
+<h2>Add a comment:</h2>
+<%= render "comments/form" %>
+
